@@ -1,21 +1,27 @@
 #![no_std]
 #![no_main]
 
-// pick a panicking behavior
-use panic_halt as _; // you can put a breakpoint on `rust_begin_unwind` to catch panics
-// use panic_abort as _; // requires nightly
-// use panic_itm as _; // logs messages over ITM; requires ITM support
-// use panic_semihosting as _; // logs messages to the host stderr; requires a debugger
+use defmt::*;
+use defmt_rtt as _;
+use panic_probe as _;
 
-use cortex_m::asm;
 use cortex_m_rt::entry;
 use stm32f3::stm32f303;
-
+const CPU_FREQ:u32 = 72_000_000; // 72 mhz
 #[entry]
 fn main() -> ! {
-    asm::nop(); // To not have main optimize to abort in release mode, remove when you add code
+    info!("Program start");
+    // These peripherals are an integral part of the cortex-m core
+    let core = stm32f303::CorePeripherals::take().unwrap();
+    // These peripherals are external to the core - all the vendor added peripherals (gpio/spi/i2c/uart) live here
+    let _peris = stm32f303::Peripherals::take().unwrap();
+    // Set up the core systick peripheral to allow delays specified in SI time units
+    let mut delay = cortex_m::delay::Delay::new(core.SYST, CPU_FREQ);
 
     loop {
         // your code goes here
+        // led.toggle();
+        // sleep for 1 second between loops
+        delay.delay_ms(1000);
     }
 }
