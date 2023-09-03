@@ -7,6 +7,7 @@ use panic_halt as _;
 
 use cortex_m_rt::entry;
 use cortex_m_semihosting::{debug, hprintln};
+use stm32f3::stm32f303;
 
 #[entry]
 fn main() -> ! {

@@ -23,6 +23,7 @@ use alloc_cortex_m::CortexMHeap;
 use cortex_m::asm;
 use cortex_m_rt::entry;
 use cortex_m_semihosting::{hprintln, debug};
+use stm32f3::stm32f303;
 
 // this is the allocator the application will use
 #[global_allocator]

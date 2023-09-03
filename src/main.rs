@@ -9,6 +9,7 @@ use panic_halt as _; // you can put a breakpoint on `rust_begin_unwind` to catch
 
 use cortex_m::asm;
 use cortex_m_rt::entry;
+use stm32f3::stm32f303;
 
 #[entry]
 fn main() -> ! {

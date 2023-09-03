@@ -84,6 +84,7 @@ use panic_halt as _;
 use core::ptr;
 
 use cortex_m_rt::entry;
+use stm32f3::stm32f303;
 
 #[entry]
 fn main() -> ! {
